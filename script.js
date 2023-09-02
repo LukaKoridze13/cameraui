@@ -2,6 +2,9 @@ const slides = document.querySelector(".slides");
 const recordButton = document.getElementById("record-button");
 const video = document.querySelector("#video");
 const state = document.getElementById("state");
+const swapCameraButton = document.getElementById("swapCameraButton");
+let frontCamera = true; // Initially set to use the front-facing camera
+
 let isDragging = false;
 let startPosX = 0;
 let currentTranslate = 0;
@@ -11,6 +14,8 @@ let chunks = [];
 let mediaRecorder;
 let recordedVideoURL = null;
 const threshold = 50;
+
+swapCameraButton.addEventListener("click", swapCamera);
 
 recordButton.addEventListener("click", () => {
   if (recordingState === "live") {
@@ -87,6 +92,7 @@ function enableMedia() {
 
 function startRecording() {
   recordButton.style.display = "none";
+  swapCameraButton.style.display = "none";
   mediaRecorder = new MediaRecorder(video.srcObject);
   recordingState = "recording";
   chunks = [];
@@ -111,6 +117,8 @@ function startRecording() {
 
 function stopRecording() {
   recordButton.style.display = "block";
+  swapCameraButton.style.display = "block";
+
   recordingState = "recorded";
   mediaRecorder.stop();
   state.textContent = "";
@@ -124,4 +132,31 @@ function startOver() {
   video.loop = false;
   video.muted = true;
   enableMedia();
+}
+
+async function swapCamera() {
+  const devices = await navigator.mediaDevices.enumerateDevices();
+
+  // Find video devices (cameras)
+  const videoDevices = devices.filter((device) => device.kind === "videoinput");
+
+  if (videoDevices.length < 2) {
+    // There are not enough cameras to swap
+    alert("You need at least two cameras to swap.");
+    return;
+  }
+
+  // Toggle between front and rear camera
+  frontCamera = !frontCamera;
+
+  // Set the desired camera as the video source
+  const deviceId = frontCamera
+    ? videoDevices[0].deviceId
+    : videoDevices[1].deviceId;
+  const stream = await navigator.mediaDevices.getUserMedia({
+    video: { deviceId },
+  });
+
+  // Update the video source
+  video.srcObject = stream;
 }
