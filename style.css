@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100svh;
+  background-color: #f0f0f0;
+}
+
+.slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100svh;
+}
+
+.slides {
+  display: flex;
+  width: 300%;
+  height: 100%;
+}
+
+.slide {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  transition: transform 0.3s ease-in-out;
+  height: 100%;
+  overflow: hidden;
+}
+
+#reels {
+  background-color: #f5a623;
+}
+
+#camera {
+  background-color: #1da1f2;
+}
+
+#messages {
+  background-color: #8a3ab9;
+}
+
+#record-button {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  bottom: 36px;
+  background-color: white;
+  border-radius: 50%;
+  border: 4px solid red;
+  font-size: 12px;
+}
+
+#state {
+  position: absolute;
+  bottom: 46px;
+  font-size: 14px;
+  color: red;
+}
+
+#video {
+  width: 100vw;
+  height: 100vh;
+}
