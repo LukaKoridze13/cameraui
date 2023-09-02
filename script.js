@@ -74,11 +74,7 @@ slides.addEventListener("touchend", (e) => {
 function enableMedia() {
   navigator.mediaDevices
     .getUserMedia({
-      video: {
-        width: { ideal: 1080 }, // Desired width in pixels
-        height: { ideal: 1920 }, // Desired height in pixels (note the swap)
-        aspectRatio: 9 / 16, // Specify the aspect ratio for portrait mode
-      },
+      video: true,
       audio: true,
     })
     .then(function (stream) {
