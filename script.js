@@ -63,7 +63,7 @@ slides.addEventListener("touchend", (e) => {
   }
   if (currentIndex === 1) {
     setTimeout(enableMedia, 200);
-  }else{
+  } else {
     startOver();
   }
 
@@ -74,7 +74,10 @@ slides.addEventListener("touchend", (e) => {
 function enableMedia() {
   navigator.mediaDevices
     .getUserMedia({
-      video: true,
+      video: {
+        width: { ideal: window.innerWidth }, // Desired width in pixels
+        height: { ideal: window.innerHeight }, // Desired height in pixels
+      },
       audio: true,
     })
     .then(function (stream) {
@@ -83,7 +86,7 @@ function enableMedia() {
 }
 
 function startRecording() {
-  recordButton.style.display = 'none';
+  recordButton.style.display = "none";
   mediaRecorder = new MediaRecorder(video.srcObject);
   recordingState = "recording";
   chunks = [];
@@ -106,7 +109,7 @@ function startRecording() {
 }
 
 function stopRecording() {
-  recordButton.style.display = 'block';
+  recordButton.style.display = "block";
   recordingState = "recorded";
   mediaRecorder.stop();
   state.textContent = "";
