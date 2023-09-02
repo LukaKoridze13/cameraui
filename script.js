@@ -2,9 +2,6 @@ const slides = document.querySelector(".slides");
 const recordButton = document.getElementById("record-button");
 const video = document.querySelector("#video");
 const state = document.getElementById("state");
-const swapCameraButton = document.getElementById("swapCameraButton");
-let frontCamera = true; // Initially set to use the front-facing camera
-
 let isDragging = false;
 let startPosX = 0;
 let currentTranslate = 0;
@@ -15,8 +12,6 @@ let mediaRecorder;
 let recordedVideoURL = null;
 let cameraFacing = "user";
 const threshold = 50;
-
-swapCameraButton.addEventListener("click", swapCamera);
 
 recordButton.addEventListener("click", () => {
   if (recordingState === "live") {
@@ -135,13 +130,4 @@ function startOver() {
   video.loop = false;
   video.muted = true;
   enableMedia(cameraFacing);
-}
-
-function swapCamera() {
-  if (cameraFacing === "user") {
-    cameraFacing = "environment";
-  } else {
-    cameraFacing = "user";
-  }
-  startOver();
 }
