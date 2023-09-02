@@ -81,6 +81,7 @@ function enableMedia() {
     })
     .then(function (stream) {
       video.srcObject = stream;
+      video.muted = true;
     });
 }
 
@@ -100,6 +101,7 @@ function startRecording() {
     video.srcObject = null;
     video.src = recordedVideoURL;
     video.loop = true;
+    video.muted = false;
     video.play();
   };
 
@@ -120,5 +122,6 @@ function startOver() {
   recordingState = "live";
   video.src = "";
   video.loop = false;
+  video.muted = true;
   enableMedia();
 }
