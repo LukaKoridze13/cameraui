@@ -74,7 +74,9 @@ slides.addEventListener("touchend", (e) => {
 function enableMedia() {
   navigator.mediaDevices
     .getUserMedia({
-      video: true,
+      video: {
+        facingMode: "user",
+      },
       audio: true,
     })
     .then(function (stream) {
