@@ -1,5 +1,8 @@
 const slides = document.querySelector(".slides");
 const recordButton = document.getElementById("record-button");
+const postButton = document.getElementById("post-button");
+const buttons = document.querySelector(".buttons");
+
 const video = document.querySelector("#video");
 const state = document.getElementById("state");
 let isDragging = false;
@@ -92,7 +95,7 @@ function enableMedia() {
 }
 
 function startRecording() {
-  recordButton.style.display = "none";
+  buttons.style.display = "none";
   mediaRecorder = new MediaRecorder(video.srcObject);
   recordingState = "recording";
   chunks = [];
@@ -116,7 +119,8 @@ function startRecording() {
 }
 
 function stopRecording() {
-  recordButton.style.display = "block";
+  buttons.style.display = "block";
+  postButton.style.display = "block";
   recordingState = "recorded";
   mediaRecorder.stop();
   state.textContent = "";
@@ -125,6 +129,7 @@ function stopRecording() {
 
 function startOver() {
   recordButton.textContent = "";
+  postButton.style.display = "none";
   recordingState = "live";
   video.src = "";
   video.loop = false;

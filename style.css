@@ -46,15 +46,33 @@ body {
   background-color: #8a3ab9;
 }
 
+.buttons {
+  width: 100vw;
+  position: absolute;
+  bottom: 36px;
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
 #record-button {
   width: 70px;
   height: 70px;
-  position: absolute;
-  bottom: 36px;
   background-color: white;
   border-radius: 50%;
   border: 4px solid red;
   font-size: 12px;
+}
+
+#post-button {
+  width: 70px;
+  height: 70px;
+  background-color: white;
+  border-radius: 50%;
+  border: 4px solid red;
+  font-size: 16px;
+  font-weight: bold;
+  display: none;
 }
 
 #state {
