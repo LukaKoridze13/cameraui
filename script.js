@@ -119,7 +119,7 @@ function startRecording() {
 }
 
 function stopRecording() {
-  buttons.style.display = "block";
+  buttons.style.display = "flex";
   postButton.style.display = "block";
   recordingState = "recorded";
   mediaRecorder.stop();
