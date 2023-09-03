@@ -57,14 +57,6 @@ body {
   font-size: 12px;
 }
 
-#swapCameraButton {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  bottom: 44px;
-  left: 110vw;
-}
-
 #state {
   position: absolute;
   bottom: 46px;

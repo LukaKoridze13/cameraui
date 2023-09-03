@@ -5,7 +5,7 @@ const state = document.getElementById("state");
 let isDragging = false;
 let startPosX = 0;
 let currentTranslate = 0;
-let currentIndex = 0;
+let currentIndex = 1;
 let recordingState = "live";
 let chunks = [];
 let mediaRecorder;
@@ -21,6 +21,10 @@ recordButton.addEventListener("click", () => {
     startOver();
   }
 });
+
+// Set the initial position to the middle slide
+currentTranslate = currentIndex * -window.innerWidth;
+slides.style.transform = `translateX(${currentTranslate}px)`;
 
 slides.addEventListener("touchstart", (e) => {
   isDragging = true;
@@ -61,7 +65,7 @@ slides.addEventListener("touchend", (e) => {
   ) {
     currentIndex++;
   }
-  if (currentIndex === 1) {
+  if (currentIndex === 0) {
     setTimeout(enableMedia, 200);
   } else {
     startOver();
