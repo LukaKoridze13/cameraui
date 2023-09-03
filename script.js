@@ -10,7 +10,6 @@ let recordingState = "live";
 let chunks = [];
 let mediaRecorder;
 let recordedVideoURL = null;
-let cameraFacing = "user";
 const threshold = 50;
 
 recordButton.addEventListener("click", () => {
@@ -77,7 +76,7 @@ function enableMedia() {
     .getUserMedia({
       video: {
         facingMode: {
-          exact: cameraFacing,
+          exact: "user",
         },
       },
       audio: true,
@@ -90,7 +89,6 @@ function enableMedia() {
 
 function startRecording() {
   recordButton.style.display = "none";
-  swapCameraButton.style.display = "none";
   mediaRecorder = new MediaRecorder(video.srcObject);
   recordingState = "recording";
   chunks = [];
@@ -115,8 +113,6 @@ function startRecording() {
 
 function stopRecording() {
   recordButton.style.display = "block";
-  swapCameraButton.style.display = "block";
-
   recordingState = "recorded";
   mediaRecorder.stop();
   state.textContent = "";
@@ -129,5 +125,5 @@ function startOver() {
   video.src = "";
   video.loop = false;
   video.muted = true;
-  enableMedia(cameraFacing);
+  enableMedia();
 }
