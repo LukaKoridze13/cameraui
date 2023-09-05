@@ -4,6 +4,9 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
+html {
+  overscroll-behavior: none;
+}
 body {
   margin: 0;
   padding: 0;
@@ -128,7 +131,7 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.174);
 }
 .dropdown-content span:last-child {
- border: none;
+  border: none;
 }
 
 #myDropdown,
@@ -137,7 +140,7 @@ body {
   width: 240px;
   top: 16px;
   left: 16px;
-  display: block;
+  display: none;
 }
 #myDropdown2 {
   display: block;
@@ -147,7 +150,6 @@ body {
   position: static;
   z-index: 3000;
 }
-
 
 #options,
 #options2 {
@@ -234,7 +236,7 @@ body {
   top: 24px;
 }
 
-#options2 span{
+#options2 span {
   position: relative;
   z-index: 10000;
 }
