@@ -130,6 +130,7 @@ body {
   width: 240px;
   top: 16px;
   left: 16px;
+  display: none;
 }
 
 #options {
