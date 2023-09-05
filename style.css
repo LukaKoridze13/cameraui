@@ -137,7 +137,7 @@ body {
   width: 240px;
   top: 16px;
   left: 16px;
-  display: none;
+  display: block;
 }
 #myDropdown2 {
   display: block;

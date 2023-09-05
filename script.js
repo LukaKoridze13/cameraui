@@ -191,10 +191,13 @@ function filterCategories(event) {
     if (document.getElementById("custom_option")) {
       document.getElementById("custom_option").remove();
     }
-    let custom = document.createElement("span");
-    custom.id = "custom_option";
-    custom.textContent = "Add: " + input;
-    OPTIONS.appendChild(custom);
+    let caps = CATEGORIES.map(cat=>cat.toLowerCase())
+    if (!caps.includes(input.toLowerCase())) {
+      let custom = document.createElement("span");
+      custom.id = "custom_option";
+      custom.textContent = "Add: " + input;
+      OPTIONS.appendChild(custom);
+    }
   } else {
     document.getElementById("custom_option").remove();
   }
