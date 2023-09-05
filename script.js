@@ -55,6 +55,7 @@ document.querySelector("#filter_open").addEventListener("click", () => {
 document.querySelector("#filter_close").addEventListener("click", () => {
   document.querySelector("#filter").style.right = "-100vw";
 });
+
 // Set the initial position to the middle slide
 currentTranslate = currentIndex * -window.innerWidth;
 slides.style.transform = `translateX(${currentTranslate}px)`;
@@ -96,7 +97,9 @@ slides.addEventListener("touchend", (e) => {
   ) {
     currentIndex++;
   }
-  startOver();
+  if (currentIndex !== 0 || recordedVideoURL === null) {
+    enableMedia();
+  }
   currentTranslate = currentIndex * -window.innerWidth;
   slides.style.transform = `translateX(${currentTranslate}px)`;
 });
