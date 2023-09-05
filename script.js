@@ -7,6 +7,10 @@ const OPTIONS = document.querySelector("#options");
 const video = document.querySelector("#video");
 const state = document.getElementById("state");
 const categorySearch = document.getElementById("myInput");
+const categorySearch2 = document.getElementById("myInput2");
+const DROPDOWN2 = document.getElementById("myDropdown2");
+const OPTIONS2 = document.querySelector("#options2");
+
 let isDragging = false;
 let startPosX = 0;
 let currentTranslate = 0;
@@ -21,6 +25,7 @@ const CATEGORIES = ["Fun", "Cooking", "Fashion", "Movies", "Nature"];
 
 CATEGORIES.forEach((cat) => {
   drawOption(cat);
+  drawOption2(cat);
 });
 
 recordButton.addEventListener("click", () => {
@@ -33,7 +38,15 @@ recordButton.addEventListener("click", () => {
   }
 });
 categorySearch.addEventListener("input", filterCategories);
+categorySearch2.addEventListener("input", filterCategories2);
 
+document.querySelector("#filter_open").addEventListener("click", () => {
+  document.querySelector("#filter").style.right = "0px";
+});
+
+document.querySelector("#filter_close").addEventListener("click", () => {
+  document.querySelector("#filter").style.right = "-100vw";
+});
 // Set the initial position to the middle slide
 currentTranslate = currentIndex * -window.innerWidth;
 slides.style.transform = `translateX(${currentTranslate}px)`;
@@ -54,9 +67,7 @@ slides.addEventListener("touchmove", (e) => {
   ) {
     return;
   }
-
   currentTranslate = currentIndex * -window.innerWidth + distanceX;
-
   slides.style.transition = "none";
   slides.style.transform = `translateX(${currentTranslate}px)`;
 });
@@ -192,6 +203,41 @@ function filterCategories(event) {
   }
 }
 
+function filterCategories2(event) {
+  const categorisSpan2 = Array.from(
+    document.querySelector("#options2").children
+  );
+  const input = event.target.value;
+  
+  categorisSpan2.forEach((span) => {
+    if (!span.textContent.toLowerCase().includes(input.toLowerCase())) {
+      span.remove();
+    }
+  });
+  CATEGORIES.forEach((category) => {
+    if (category.toLowerCase().includes(input.toLowerCase())) {
+      let isAlready = false;
+      categorisSpan2.forEach((span) => {
+        if (span.textContent.toLowerCase() === category.toLowerCase()) {
+          isAlready = true;
+        }
+      });
+      if (!isAlready) {
+        drawOption2(category);
+      }
+    }
+  });
+
+  if (input.length > 30) {
+    let custom = document.createElement("span");
+    custom.id = "custom_option2";
+    custom.textContent = "Invalid: Max 30 char.";
+    OPTIONS2.appendChild(custom);
+  }
+  console.log(OPTIONS2);
+  
+}
+
 function drawOption(category) {
   let option = document.createElement("span");
   option.textContent = category;
@@ -200,4 +246,15 @@ function drawOption(category) {
     categorySearch.blur();
   });
   OPTIONS.appendChild(option);
+}
+
+function drawOption2(category) {
+  let option = document.createElement("span");
+  option.textContent = category;
+
+  option.addEventListener("click", () => {
+    categorySearch2.value = category;
+    categorySearch2.blur();
+  });
+  OPTIONS2.appendChild(option);
 }
