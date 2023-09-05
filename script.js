@@ -116,7 +116,6 @@ function enableMedia() {
 
 function startRecording() {
   buttons.style.display = "none";
-  DROPDOWN.style.display = "none";
 
   mediaRecorder = new MediaRecorder(video.srcObject);
   recordingState = "recording";
@@ -151,6 +150,7 @@ function stopRecording() {
 }
 
 function startOver() {
+  DROPDOWN.style.display = "none";
   recordButton.textContent = "";
   postButton.style.display = "none";
   recordingState = "live";
