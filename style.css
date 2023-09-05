@@ -86,3 +86,52 @@ body {
 #video {
   height: 100svh;
 }
+
+#myInput {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 8px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  border-radius: 20px;
+}
+
+#myInput:focus {
+  outline: none;
+}
+#myInput:focus + #options {
+  display: block;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f6f6f6;
+  border: 1px solid #ddd;
+  z-index: 1;
+  border-radius: 20px;
+}
+
+.dropdown-content span {
+  color: black;
+  padding: 8px;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.174);
+}
+
+#myDropdown {
+  position: absolute;
+  width: 240px;
+  top: 16px;
+  left: 16px;
+}
+
+#options {
+  display: none;
+}

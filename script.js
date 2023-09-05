@@ -2,9 +2,11 @@ const slides = document.querySelector(".slides");
 const recordButton = document.getElementById("record-button");
 const postButton = document.getElementById("post-button");
 const buttons = document.querySelector(".buttons");
-
+const DROPDOWN = document.getElementById("myDropdown");
+const OPTIONS = document.querySelector("#options");
 const video = document.querySelector("#video");
 const state = document.getElementById("state");
+const categorySearch = document.getElementById("myInput");
 let isDragging = false;
 let startPosX = 0;
 let currentTranslate = 0;
@@ -15,6 +17,12 @@ let mediaRecorder;
 let recordedVideoURL = null;
 const threshold = 50;
 
+const CATEGORIES = ["Fun", "Cooking", "Fashion", "Movies", "Nature"];
+
+CATEGORIES.forEach((cat) => {
+  drawOption(cat);
+});
+
 recordButton.addEventListener("click", () => {
   if (recordingState === "live") {
     startRecording();
@@ -24,6 +32,7 @@ recordButton.addEventListener("click", () => {
     startOver();
   }
 });
+categorySearch.addEventListener("input", filterCategories);
 
 // Set the initial position to the middle slide
 currentTranslate = currentIndex * -window.innerWidth;
@@ -96,6 +105,8 @@ function enableMedia() {
 
 function startRecording() {
   buttons.style.display = "none";
+  DROPDOWN.style.display = "none";
+
   mediaRecorder = new MediaRecorder(video.srcObject);
   recordingState = "recording";
   chunks = [];
@@ -125,6 +136,7 @@ function stopRecording() {
   mediaRecorder.stop();
   state.textContent = "";
   recordButton.textContent = "Start over";
+  DROPDOWN.style.display = "block";
 }
 
 function startOver() {
@@ -135,4 +147,57 @@ function startOver() {
   video.loop = false;
   video.muted = true;
   enableMedia();
+}
+
+function filterCategories(event) {
+  const categorisSpan = Array.from(document.querySelector("#options").children);
+  const input = event.target.value;
+  categorisSpan.forEach((span) => {
+    if (!span.textContent.toLowerCase().includes(input.toLowerCase())) {
+      span.remove();
+    }
+  });
+  CATEGORIES.forEach((category) => {
+    if (category.toLowerCase().includes(input.toLowerCase())) {
+      let isAlready = false;
+      categorisSpan.forEach((span) => {
+        if (span.textContent.toLowerCase() === category.toLowerCase()) {
+          isAlready = true;
+        }
+      });
+      if (!isAlready) {
+        drawOption(category);
+      }
+    }
+  });
+  if (input.length > 0) {
+    if (document.getElementById("custom_option")) {
+      document.getElementById("custom_option").remove();
+    }
+    let custom = document.createElement("span");
+    custom.id = "custom_option";
+    custom.textContent = "Add: " + input;
+    OPTIONS.appendChild(custom);
+  } else {
+    document.getElementById("custom_option").remove();
+  }
+  if (input.length > 30) {
+    if (document.getElementById("custom_option")) {
+      document.getElementById("custom_option").remove();
+      let custom = document.createElement("span");
+      custom.id = "custom_option";
+      custom.textContent = "Invalid: Max 30 char.";
+      OPTIONS.appendChild(custom);
+    }
+  }
+}
+
+function drawOption(category) {
+  let option = document.createElement("span");
+  option.textContent = category;
+  option.addEventListener("click", () => {
+    categorySearch.value = category;
+    categorySearch.blur();
+  });
+  OPTIONS.appendChild(option);
 }
