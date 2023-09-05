@@ -40,6 +40,13 @@ recordButton.addEventListener("click", () => {
 categorySearch.addEventListener("input", filterCategories);
 categorySearch2.addEventListener("input", filterCategories2);
 
+categorySearch.addEventListener("click", () => {
+  document.querySelector("#options").style.display = "block";
+});
+categorySearch2.addEventListener("click", () => {
+  document.querySelector("#options2").style.display = "block";
+});
+
 document.querySelector("#filter_open").addEventListener("click", () => {
   document.querySelector("#filter").style.right = "0px";
 });
@@ -208,7 +215,7 @@ function filterCategories2(event) {
     document.querySelector("#options2").children
   );
   const input = event.target.value;
-  
+
   categorisSpan2.forEach((span) => {
     if (!span.textContent.toLowerCase().includes(input.toLowerCase())) {
       span.remove();
@@ -235,7 +242,6 @@ function filterCategories2(event) {
     OPTIONS2.appendChild(custom);
   }
   console.log(OPTIONS2);
-  
 }
 
 function drawOption(category) {
@@ -243,7 +249,7 @@ function drawOption(category) {
   option.textContent = category;
   option.addEventListener("click", () => {
     categorySearch.value = category;
-    categorySearch.blur();
+    document.querySelector("#options").style.display = "none";
   });
   OPTIONS.appendChild(option);
 }
@@ -254,7 +260,18 @@ function drawOption2(category) {
 
   option.addEventListener("click", () => {
     categorySearch2.value = category;
-    categorySearch2.blur();
+    document.querySelector("#options2").style.display = "none";
   });
   OPTIONS2.appendChild(option);
 }
+
+window.addEventListener("click", (event) => {
+  console.log(event.target)
+  if (
+    event.target.classList.contains("wrapper") ||
+    event.target.id === "video"
+  ) {
+    document.querySelector("#options2").style.display = "none";
+    document.querySelector("#options").style.display = "none";
+  }
+});

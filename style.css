@@ -105,10 +105,7 @@ body {
 #myInput2:focus {
   outline: none;
 }
-#myInput:focus + #options,
-#myInput2:focus + #options2 {
-  display: block;
-}
+
 .dropdown {
   position: relative;
   display: inline-block;
