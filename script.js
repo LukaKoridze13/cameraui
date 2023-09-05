@@ -37,6 +37,7 @@ recordButton.addEventListener("click", () => {
     startOver();
   }
 });
+
 categorySearch.addEventListener("input", filterCategories);
 categorySearch2.addEventListener("input", filterCategories2);
 
@@ -95,12 +96,7 @@ slides.addEventListener("touchend", (e) => {
   ) {
     currentIndex++;
   }
-  if (currentIndex === 0) {
-    setTimeout(enableMedia, 200);
-  } else {
-    startOver();
-  }
-
+  startOver();
   currentTranslate = currentIndex * -window.innerWidth;
   slides.style.transform = `translateX(${currentTranslate}px)`;
 });
@@ -241,7 +237,6 @@ function filterCategories2(event) {
     custom.textContent = "Invalid: Max 30 char.";
     OPTIONS2.appendChild(custom);
   }
-  console.log(OPTIONS2);
 }
 
 function drawOption(category) {
@@ -266,7 +261,6 @@ function drawOption2(category) {
 }
 
 window.addEventListener("click", (event) => {
-  console.log(event.target)
   if (
     event.target.classList.contains("wrapper") ||
     event.target.id === "video"
