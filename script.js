@@ -15,7 +15,7 @@ let isDragging = false;
 let startPosX = 0;
 let currentTranslate = 0;
 let currentIndex = 1;
-let recordingState = "live";
+let recordingState = null;
 let chunks = [];
 let mediaRecorder;
 let recordedVideoURL = null;
@@ -97,7 +97,7 @@ slides.addEventListener("touchend", (e) => {
   ) {
     currentIndex++;
   }
-  if (currentIndex !== 0 || recordedVideoURL === null) {
+  if (recordingState === null) {
     enableMedia();
   }
   currentTranslate = currentIndex * -window.innerWidth;
@@ -105,6 +105,7 @@ slides.addEventListener("touchend", (e) => {
 });
 
 function enableMedia() {
+  recordingState = "live";
   navigator.mediaDevices
     .getUserMedia({
       video: {
@@ -191,7 +192,7 @@ function filterCategories(event) {
     if (document.getElementById("custom_option")) {
       document.getElementById("custom_option").remove();
     }
-    let caps = CATEGORIES.map(cat=>cat.toLowerCase())
+    let caps = CATEGORIES.map((cat) => cat.toLowerCase());
     if (!caps.includes(input.toLowerCase())) {
       let custom = document.createElement("span");
       custom.id = "custom_option";
