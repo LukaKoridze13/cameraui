@@ -65,21 +65,7 @@ slides.addEventListener("touchstart", (e) => {
   startPosX = e.touches[0].clientX;
 });
 
-slides.addEventListener("touchmove", (e) => {
-  if (!isDragging) return;
 
-  const distanceX = e.touches[0].clientX - startPosX;
-
-  if (
-    (currentIndex === 0 && distanceX > 0) ||
-    (currentIndex === slides.children.length - 1 && distanceX < 0)
-  ) {
-    return;
-  }
-  currentTranslate = currentIndex * -window.innerWidth + distanceX;
-  slides.style.transition = "none";
-  slides.style.transform = `translateX(${currentTranslate}px)`;
-});
 
 slides.addEventListener("touchend", (e) => {
   if (!isDragging) return;
@@ -276,3 +262,57 @@ window.addEventListener("click", (event) => {
     document.querySelector("#options").style.display = "none";
   }
 });
+
+// video controls
+const videos = document.querySelectorAll(".app");
+
+videoController();
+
+document.querySelector("#reels").addEventListener("scroll", videoController);
+
+function videoController() {
+  videos.forEach((video) => {
+    if (isCenterInViewport(video)) {
+      video.children[0].children[0].play();
+      Array.from(video.children[2].children).forEach((star, index) => {
+        star.addEventListener("click", (event) => {
+          // Add "fa-bounce" class to the clicked star
+          event.target.classList.add("fa-bounce");
+
+          // Find the parent div with class "stars"
+          const starsParent = video.children[2];
+
+          if (starsParent) {
+            // Get all child stars within the same parent div
+            const allStars = starsParent.querySelectorAll("i");
+
+            // Add "fa-solid" class to stars from index 0 to the clicked star's index
+            for (let i = 0; i <= index; i++) {
+              allStars[i].classList.add("fa-solid");
+            }
+
+            // Find the closest div with class "app"
+            const appDiv = video;
+
+            if (appDiv) {
+              // Scroll to the sibling div with class "app"
+              const siblingAppDiv = appDiv.nextElementSibling;
+              if (siblingAppDiv && siblingAppDiv.classList.contains("app")) {
+                setTimeout(() => {
+                  siblingAppDiv.scrollIntoView({ behavior: "smooth" });
+                },1000);
+              }
+            }
+          }
+        });
+      });
+    } else {
+      video.children[0].children[0].pause();
+    }
+  });
+}
+
+function isCenterInViewport(element) {
+  const elementRect = element.getBoundingClientRect();
+  return elementRect.top === 0;
+}
