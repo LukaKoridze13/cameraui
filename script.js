@@ -300,7 +300,7 @@ function videoController() {
               if (siblingAppDiv && siblingAppDiv.classList.contains("app")) {
                 setTimeout(() => {
                   siblingAppDiv.scrollIntoView({ behavior: "smooth" });
-                },1000);
+                },500);
               }
             }
           }
